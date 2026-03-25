@@ -1,0 +1,45 @@
+---
+title: "Analyze Manuload CO2 Data"
+author: "Nolan Adams"
+format: html
+execute: 
+  echo: false
+  message: false
+  warning: false
+---
+
+## Analysis of Co2 at Manuloa over time
+
+This analysis will look at the concentration of C02 at Manuloa Observatory over time
+
+```{r}
+#| label: loadpackages-and-data
+
+# load packages
+library("dplyr")
+library("ggplot2")
+
+# load data
+mlo_data <- read.csv("data/monthly_in_situ_co2_mlo_cleaned.csv")
+```
+
+
+Now data is loaded, we will make a plot of time on the x axis and C02 concentration on the y axis using plot
+
+
+```{r}
+#| label: plot-co2
+
+# make the plot
+mlo_data %>%
+  filter(CO2 > 0) %>%
+  ggplot(aes(x = Date.1,
+             y = CO2)) +
+  geom_line() +
+  labs(title = "C02 Concentration at MLO over time",
+       x = "Year",
+       y = "Carbon Dioxide Concentration")
+
+```
+
+  
